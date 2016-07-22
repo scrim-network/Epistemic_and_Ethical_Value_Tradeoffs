@@ -1,0 +1,14 @@
+CEER:
+
+This repository provides the R-scripts to reproduce the figures of the following paper:
+
+Vezér, M. A., Bakker, A.M.R., Keller, K. and Tuana, N. (2016): "Navigating Epistemic and Ethical Value Trade-offs in New Orleans Flood Risk Modelling" ready to submit to Nature Climate Change.
+
+The models and data are derived from two papers:
+- Jonkman, S. N. et al. "Risk‐based design of flood defence systems: a preliminary analysis of the optimal protection level for the New Orleans metropolitan area." Journal of Flood Risk Management 2.3 (2009): 170-181
+- Miller, A., S. N. Jonkman, and M. Van Ledden. "Risk to life due to flooding in post-Katrina New Orleans." Natural hazards and earth system sciences 15.1 (2015): 59-73
+
+working:
+main.R calls all scripts in right order
+
+(scripts are created by Alexander Bakker (SCRiM), July 2016)
