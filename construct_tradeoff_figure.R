@@ -59,7 +59,7 @@ Rlabels[rows] <- c("100","1,000","10,000","100,000") # and assing associated lab
 
 # ============================================================================
 # Plot main plot
-p1 <- 
+p0 <- 
   ggplot(data=df.m, aes(y=costs, color=cost_type)) +
 # plot data
   geom_vline(xintercept=H100, color="gray",  size=1.5, linetype=1) +
@@ -73,7 +73,6 @@ p1 <-
        linetype = NULL,
        shape    = NULL) +
 # Define legends (scales)
-  scale_x_continuous(breaks=(0:5)/foot, labels=0:5) + # translate levee heightenings from 'feet' to 'meters'
   scale_color_manual(labels=c("Investment", "Risk", "Total costs", paste(rep(" ",spaces), collapse = ""), "100-yr return level", "Economic optimal level"),
                      values=c("magenta","deepskyblue","darkgreen", "white", "gray", "black"), # white is only defined to create white space 
                      drop=F) +
@@ -85,10 +84,16 @@ p1 <-
 theme(plot.margin=unit(c(0.0,1,1,1), "cm") )
 
 # ============================================================================
-# Add return periods on second y-axis
-p2 <- p1 +
-  scale_x_continuous(breaks=Rbreaks, labels=Rlabels) +
-  labs(x=NULL) # +
+#Create double x-axis
+
+# Add levee heightening on first x-axis
+p1 <- p0 +
+  scale_x_continuous(breaks=(0:5)/foot, labels=0:5) # translate levee heightenings from 'feet' to 'meters'
+  
+
+# Add return periods on second x-axis and remove axis title
+p2 <- p0 +
+  scale_x_continuous(NULL, breaks=Rbreaks, labels=Rlabels)
 
 g1 <- ggplot_dual_axis(p1, p2, which.axis = "x")
 plot(g1)

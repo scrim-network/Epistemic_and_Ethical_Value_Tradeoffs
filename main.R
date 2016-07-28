@@ -11,5 +11,5 @@ rm(list = ls())
 graphics.off()
 
 # ============================================================================
-source("Value_Tradeoff.R") # figure 1
+source("Value_tradeoff.R") # figure 1
 source("NOLA_Tradeoffs.R") # figure 2

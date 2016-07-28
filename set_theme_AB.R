@@ -50,7 +50,8 @@ theme_ali <- function (base_size = 16, base_family = "")
     strip.text.x = element_text(), 
     strip.text.y = element_text(angle = -90),
     strip.switch.pad.grid = unit(0, "cm"),
-    
+    strip.switch.pad.wrap = unit(0.1, "cm"),
+   
     plot.background = element_rect(colour = "white"), 
     plot.title = element_text(size = rel(1.2)), 
     plot.margin = unit(c(1, 1, 0.5, 0.5), "lines"), complete = TRUE)
