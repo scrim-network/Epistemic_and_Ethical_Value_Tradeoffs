@@ -2,13 +2,17 @@ CEER:
 
 This repository provides the R-scripts to reproduce the figures of the following paper:
 
-Vezér, M. A., Bakker, A.M.R., Keller, K. and Tuana, N. (2016): "Navigating Epistemic and Ethical Value Trade-offs in New Orleans Flood Risk Modelling" ready to submit to Nature Climate Change.
+Vezér, M. A., Bakker, A.M.R., Keller, K. and Tuana, N. (2016): "Epistemic and Ethical Values in Decision Analytical Models: Flood Risk Management in Coastal Louisiana" submitted to Nature Climate Change.
 
 The models and data are derived from two papers:
-- Jonkman, S. N. et al. "Risk‐based design of flood defence systems: a preliminary analysis of the optimal protection level for the New Orleans metropolitan area." Journal of Flood Risk Management 2.3 (2009): 170-181
-- Miller, A., S. N. Jonkman, and M. Van Ledden. "Risk to life due to flooding in post-Katrina New Orleans." Natural hazards and earth system sciences 15.1 (2015): 59-73
+- Jonkman, S. N. et al. (2009a) “Risk‐based design of flood defence systems: a preliminary analysis of the optimal protection level for the New Orleans metropolitan area." Journal of Flood Risk Management 2, 170-181,
+- Jonkman, S. N. et al. (2009b) “Loss of Life Caused by the Flooding of New Orleans After Hurricane Katrina:  Analysis of the Relationship Between Flood Characteristics and Mortality." Risk Analysis 29, 676–698.
 
 working:
 main.R calls all scripts in right order
 
-(scripts are created by Alexander Bakker (SCRiM), July 2016)
+Alexander Bakker (SCRiM), July 2016
+
+
+Copyright (C) 2016 SCRiMScripts are free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. SIMPLE.R is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details. You should have received a copy of the GNU Lesser General Public License along with the CEER scripts. If not, see <http://www.gnu.org/licenses/
+

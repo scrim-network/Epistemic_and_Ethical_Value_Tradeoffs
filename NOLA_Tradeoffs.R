@@ -31,5 +31,5 @@ source("optimal_dike_heightening.R")
 source("risk_to_life.R")
 
 # Construct tradeoff figure
-source("construct_tradeoff_figure")
+source("construct_tradeoff_figure.R")
 

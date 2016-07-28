@@ -16,18 +16,15 @@ p0       <- 0.01          # failure probability (due to overtopping)
 alpha    <- -log(0.1)/4   # exponential flood frequency coefficient (for X in ft)
 X50      <- -1.2          # return level belonging to 50-year return period [ft]
 
-# Table with costs for levee upgrade
+# Estimated investment costs for different dike heightenings
 I_table <- data.frame(
   X  = c( X50,   0,   2,   4,   6,   8,   10,  12,   14,  16),   # heightenings compared to current level [ft]
   N1 = c( 2.0, 2.2, 2.4, 2.6, 2.9, 3.1, 3.35, 3.6, 3.85, 4.1))   # update costs with respect to post-Katrina state [billion dollars]
 
 foot     <- 0.3048                                               # length of 1 ft [m]
 
-# Design_level <- 9                                                # Current design level [9 ft]
-
 # ================================================================================
 # Calculate failure probabilities, risks and costs for different levee heightenings
-
 X             <- (-120:1600)/100                         # Considered levee heightenings [ft]
 Flood_prob    <- p0 * exp(- alpha * (X))                 # Annual flood probability
 Risk          <- V0/delta * Flood_prob                   # Approximation used by Jonkman et al (2009)

@@ -83,15 +83,6 @@ p1 <-
          shape = guide_legend(order = 2)) +
 # Some final tweaking
 theme(plot.margin=unit(c(0.0,1,1,1), "cm") )
-  
-#  legend.key.height = unit(1,"lines"),                 # legend
-#      legend.key=element_blank(),
-#      legend.text = element_text(size = 14),
-#      legend.background = element_rect(fill=alpha('white', 0.0)),
-#      ,
-#      panel.border = element_rect(colour = "black", fill=NA, size=0.5),
-#      axis.title.y=element_text(angle=90, margin = margin(r=10)),
-#      axis.title.x=element_text(margin = margin(t=10, b=10)) ) 
 
 # ============================================================================
 # Add return periods on second y-axis
@@ -109,51 +100,62 @@ plot(g1)
 # ============================================================================
 # Plot risk to life
 # ============================================================================
-# Subselection with relevant values
-df.r$ev.min[which(df.r$ev.min<0.5)] <- 0.5 # everything outside is provided min value of plotted area, just for plotting purposes
-df.r$ev.max[which(df.r$ev.max<0.5)] <- 0.5
 
-katrina.evac <- data.frame(rates=c(0.8,0.9), storm=rep("Katrina",2))  # evacuation rate Katrina
+plot.risk2life <- function(df.r) {
+  # Subselection with relevant values
+  df.r$ev.min[which(df.r$ev.min<lbev)] <- lbev # everything outside is provided min value of plotted area
+  df.r$ev.max[which(df.r$ev.max<lbev)] <- lbev
+  
+  katrina.evac <- data.frame(rates=c(0.8,0.9), storm=rep("Katrina",2))  # evacuation rate Katrina
+  
+  # ============================================================================
+  # Define legend new scales
+  
+  # Colors of risk perception
+  risk.colors <- c("Tolerable"           = "green",
+                   "Marginally accepted" = "gold",
+                   "Less accepted"       = "orange",
+                   "Intolerable"         = "red")
+  
+  # Katrina colors
+  katrina.colors <- c("appel" = "blue")
+  
+  p <- 
+    ggplot(df.r, aes(x=Heightening, ymin=ev.min, ymax=ev.max, fill=Risk.level)) +
+    # Plot data
+    geom_ribbon() +
+    geom_line(data=df.r, aes(y=ev.max), color="black") +
+    geom_line(data=df.r, aes(y=ev.min), color="black") +
+    geom_vline(xintercept=H100, color="gray", size=2, linetype=1) +
+    geom_vline(xintercept=Hopt, color="black", size=1.5, linetype="dashed") +
+    geom_hline(data=katrina.evac, aes(yintercept=rates, colour="appel"), size=1.5, linetype="dashed") +
+    # Define labels
+    labs(x="\nReturn period [years]\n",
+         y="Evacuation rate [%]",
+         fill="Individual risk to life",
+         color=NULL) +
+    # Define legend scales
+    scale_x_continuous(breaks=Rbreaks,labels=Rlabels) +
+    scale_y_continuous(breaks=(5:10)/10, labels=(5:10)*10) +
+    scale_fill_manual(values  = risk.colors, breaks = names(risk.colors), labels  = names(risk.colors)) + 
+    scale_color_manual(values  = "blue", labels  = "Upper and lower estimates of\nevacuation rate for Katrina") + 
+    guides(fill = guide_legend(order = 1), 
+           colour = guide_legend(order = 2))
+  
+  return(p)
+  
+}
 
-# ============================================================================
-# Define legend new scales
-
-# Colors of risk perception
-risk.colors <- c("Tolerable"           = "green",
-                 "Marginally accepted" = "gold",
-                 "Less accepted"       = "orange",
-                 "Intolerable"         = "red")
-
-# Katrina colors
-katrina.colors <- c("appel" = "blue")
-
-p5 <- 
-  ggplot(df.r, aes(x=Heightening, ymin=ev.min, ymax=ev.max, fill=Risk.level)) +
-# Plot data
-  geom_ribbon() +
-  geom_line(data=df.r, aes(y=ev.max), color="black") +
-  geom_line(data=df.r, aes(y=ev.min), color="black") +
-  geom_vline(xintercept=H100, color="gray", size=2, linetype=1) +
-  geom_vline(xintercept=Hopt, color="black", size=1.5, linetype="dashed") +
-  geom_hline(data=katrina.evac, aes(yintercept=rates, colour="appel"), size=1.5, linetype="dashed") +
-# Define labels
-  labs(x="\nReturn period [years]\n",
-       y="Evacuation rate [%]",
-       fill="Individual risk to life",
-       color=NULL) +
-# Define legend scales
-  scale_x_continuous(breaks=Rbreaks,labels=Rlabels) +
-  scale_y_continuous(breaks=(5:10)/10, labels=(5:10)*10) +
-  scale_fill_manual(values  = risk.colors, breaks = names(risk.colors), labels  = names(risk.colors)) + 
-  scale_color_manual(values  = "blue", labels  = "Upper and lower estimates of\nevacuation rate for Katrina") + 
-  guides(fill = guide_legend(order = 1), 
-         colour = guide_legend(order = 2))
+p5 <- plot.risk2life(df.r.av)
+p6 <- plot.risk2life(df.r.mx)
 
 g5 <- ggplotGrob(p5)
+g6 <- ggplotGrob(p6)
 
-dev.off()
-pdf("bla.pdf", paper="special", width=10, height=10/1.6)
-plot_grid(g5, g1, ncol=1, align = "v", rel_heights = c(2, 2))
+
+
+pdf("fig2.pdf", paper="special", width=10, height=10/1.6)
+print(plot_grid(g6, g1, ncol=1, align = "v", rel_heights = c(2, 2)))
 dev.off()
 
   
